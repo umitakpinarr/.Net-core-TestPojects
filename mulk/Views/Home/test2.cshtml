@@ -1,0 +1,176 @@
+﻿@model List<rents>
+
+@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+<form asp-action="test2" asp-controller="Home" method="post" class="form-control">
+    <label class="form-label">Adı</label>
+    <input type="text" class="form-control" name="name" />
+    <br />
+    <label class="form-label">Adet</label>
+    <input type="text" class="form-control" name="piece" />
+    <br />
+    <button class="btn btn-primary" type="submit">Kaydet</button>
+</form>
+
+
+
+
+<div class="card">
+    <div class="table-responsive text-nowrap">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>adress</th>
+                    <th>status</th>
+                    <th>function</th>
+                    <th>tools</th>
+                </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>@item.Id</strong>
+                        </td>
+                        <td>@item.Name</td>
+                        <td>@item.price</td>
+                        <td>@item.adress</td>
+                        @if (item.status == false)
+                        {
+                            <td><span class="badge bg-label-danger me-1">Satılmadı</span></td>
+                        }
+                        else
+                        {
+                            <td><span class="badge bg-label-success me-1">Satıldı</span></td>
+                        }
+
+
+                        <td><span class="badge bg-label-warning me-1">@item.function</span></td>
+                        <td>
+                            <div class="dropdown">
+                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <div class="guncelle" data-id="@item.Id"><a class="city2 dropdown-item" data-bs-toggle="modal" data-bs-target="#largeModal" href=""><i class="bx bx-edit-alt me-2"></i> Edit</a></div>
+                                    <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-2"></i> Delete</a>
+                                </div>
+                                
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="largeModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel3">Modal title</h5>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <input type="text" id="Id" />
+                    <div class="col col-md-6">
+                        <label for="nameLarge" class="form-label">Name</label>
+                        <input type="text" id="name" name="Name" class="form-control" placeholder="Enter Name" />
+                    </div>
+                    <div class="col col-md-6">
+                        <label for="nameLarge" class="form-label">Price</label>
+                        <input type="text" id="price" name="price" class="form-control" placeholder="Enter Name" />
+                    </div>
+                    <div class="col col-md-6">
+                        <label for="nameLarge" class="form-label">Adress</label>
+                        <input type="text" id="adress" name="adress" class="form-control" placeholder="Enter Name" />
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input"
+                                   type="radio"
+                                   name="status"
+                                   id="status1"
+                                   value="true" />
+                            <label class="form-check-label" for="inlineRadio1">Verildi</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input"
+                                   type="radio"
+                                   id="status2"
+                                   name="status"
+                                   value="false" />
+                            <label class="form-check-label" for="inlineRadio2">Verilmedi</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="defaultSelect" class="form-label">Tipi Seçiniz</label>
+                        <select id="function" name="function" class="form-select">
+                            <option value="Kiralık">Kiralık</option>
+                            <option value="Satılık">Satılık</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    Close
+                </button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).on("click",".guncelle",function () {
+
+            var city = $(this).attr("data-id");
+            $.ajax({
+                url: '@Url.Action("test3edit", "Home")',
+                type: "GET",
+                dataType: "json",
+                data: { cityId: city },
+                success: function (data) {
+
+                    $.each(data, function () {
+                        console.log(data.id);
+                        //console.log(data[0].id);
+                        //console.log(this.id);
+                        //console.log(this);
+                        //$('#district').append('<option value=' + this.id + '>' + this.name + this.surname + '</option>');
+                        $("#adress").val(data.adress);
+                        $("#status").val(data.status);
+                        $("#name").val(data.name);
+                        $("#function").val(data.function);
+                        $("#price").val(data.price);
+                        $("#Id").val(data.Id);
+                        if (data.status == true) {
+                            $("#status1").prop("checked", true);
+                        }
+                        else {
+                            $("#status2").prop("checked", true);
+                        }
+
+                    });
+                }
+            });
+        });
+    </script>
+}
+
+
+

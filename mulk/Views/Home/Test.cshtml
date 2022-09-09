@@ -1,0 +1,59 @@
+﻿@model List<tenants>
+
+
+@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<div id="result">
+    <input type="text" id="city" class="form-control" name="name" value="" />
+    <button id="testtt" class="btn btn-primary">Ara</button>
+    <br />
+    <div id="urunler">
+
+    </div>
+    <br />
+    @foreach (var item in Model)
+    {
+        @item.Name
+        @item.Surname
+    }
+    <br />
+</div>
+
+@section Scripts {
+    <script>
+        $("#testtt").click(function () {
+
+            $("#result").load("/home/rent #container");
+        });
+    </script>
+    <script type="text/javascript">
+        $("#city").keyup(function () {
+
+            var city = $("#city").val();
+            $.ajax({
+                url: '@Url.Action("Test", "Home")',
+                traditional : true,
+                type: "POST",
+                dataType: "json",
+                data: { cityId: city },
+                success: function (data) {
+                    let w = jQuery.parseJSON(data);
+                    let tableHtml = "<table class=table table-bordered> <tr><th> Adı</th> <th>Mail</th></tr>";
+
+                    $.each(w, (index, value) => {
+                        tableHtml += `<tr><td>${value.Name}</td><td>${value.mail}</td></tr>`
+
+                    });
+                    tableHtml += "</table>";
+                    $("#urunler").html(tableHtml);
+
+                }
+            });
+        });
+    </script>
+}

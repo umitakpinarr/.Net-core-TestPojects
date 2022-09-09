@@ -1,0 +1,65 @@
+﻿@model rents
+
+@{
+
+    Layout = "/Views/Shared/_Layout.cshtml";
+
+}
+<div id="container">
+    <form asp-action="rent" asp-controller="Home" method="post">
+        <div class="col-md-6 container">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div>
+                        <label for="defaultFormControlInput" class="form-label">Adı</label>
+                        <input type="text"
+                               class="form-control"
+                               placeholder="Adı Giriniz"
+                               asp-for="Name" name="Name" />
+                    </div>
+                    <div>
+                        <label for="defaultSelect" class="form-label">Tipi Seçiniz</label>
+                        <select id="defaultSelect" asp-for="function" name="function" class="form-select">
+                            <option value="Kiralık">Kiralık</option>
+                            <option value="Satılık">Satılık</option>
+                        </select>
+                    </div>
+                    <label for="defaultFormControlInput" class="form-label">Durumu</label>
+                    <div class="col-md">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input"
+                                   type="radio"
+                                   asp-for="status"
+                                   name="status"
+                                   value="true" />
+                            <label class="form-check-label" for="inlineRadio1">Verildi</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input"
+                                   type="radio"
+                                   asp-for="status"
+                                   name="status"
+                                   value="false" />
+                            <label class="form-check-label" for="inlineRadio2">Verilmedi</label>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="defaultFormControlInput" class="form-label">Fiyat</label>
+                        <input type="text"
+                               class="form-control"
+                               placeholder="E-posta adresi Giriniz"
+                               asp-for="price" name="price" />
+                    </div>
+                    <div>
+                        <label for="defaultFormControlInput" class="form-label">Adres</label>
+                        <input type="text"
+                               class="form-control"
+                               placeholder="E-posta adresi Giriniz"
+                               asp-for="adress" name="adress" />
+                    </div>
+                    <button type="submit" class="btn btn-primary my-3 container">Ekle</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,40 @@
+﻿@model tenants
+
+<form asp-action="Index" asp-controller="Home" method="post">
+    <div class="col-md-6 container">
+        <div class="card mb-4">
+            <div class="card-body">
+                <div>
+                    <label for="defaultFormControlInput" class="form-label">Name</label>
+                    <input type="text"
+                           class="form-control"
+                           placeholder="Adı Giriniz"
+                           asp-for="Name" name="Name" />
+                </div>
+                <div>
+                    <label for="defaultFormControlInput" class="form-label">Surname</label>
+                    <input type="text"
+                           class="form-control"
+                           asp-for="Surname" name="Surname"
+                           placeholder="Soyadı Giriniz" />
+                </div>
+                <div>
+                    <label for="defaultFormControlInput" class="form-label">Phone</label>
+                    <input type="text"
+                           class="form-control"
+                           placeholder="Telefon Numarası Giriniz"
+                           asp-for="Phone" name="Phone"/>
+                </div>
+                <div>
+                    <label for="defaultFormControlInput" class="form-label">Mail</label>
+                    <input type="text"
+                           class="form-control"
+                           placeholder="E-posta adresi Giriniz"
+                           asp-for="mail" name="mail" />
+                </div>
+                <button type="submit" class="btn btn-primary my-3 container">Ekle</button>
+            </div>
+        </div>
+    </div>
+</form>
+

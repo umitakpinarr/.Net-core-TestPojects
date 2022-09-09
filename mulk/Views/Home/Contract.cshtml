@@ -1,0 +1,199 @@
+﻿@model Tuple<List<tenants>,List<rents>>
+
+@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mb-3">
+    <label for="defaultSelect" class="form-label">Default select</label>
+    <select class="form-select" id="city" name="city">
+        @foreach (var item in Model.Item1)
+        {
+            <option value="@item.Id">@item.Name @item.Surname</option>
+        }
+
+
+    </select>
+    <select class="form-select" id="city2" name="city2">
+        @foreach (var item in Model.Item2)
+        {
+            <option value="@item.Id">@item.Name</option>
+        }
+
+
+    </select>
+    <div class="col-md-6 container">
+        <div class="card mb-4">
+            <div class="card-body">
+                <div>
+                    <label for="defaultFormControlInput" class="form-label">Name</label>
+                    <input type="text"
+                           id="name"
+                           class="form-control"
+                           placeholder="Adı Giriniz"
+                           value="" />
+                </div>
+                <div>
+                    <label for="defaultFormControlInput" class="form-label">Surname</label>
+                    <input type="text" id="surname"
+                           class="form-control"
+                           placeholder="Soyadı Giriniz"
+                           value="" />
+                </div>
+                <div>
+                    <label for="defaultFormControlInput" class="form-label">Phone</label>
+                    <input type="text" id="phone"
+                           class="form-control"
+                           placeholder="Telefon Numarası Giriniz"
+                           value="" />
+                </div>
+                <div>
+                    <label for="defaultFormControlInput" class="form-label">Mail</label>
+                    <input type="text" id="mail"
+                           class="form-control"
+                           placeholder="E-posta adresi Giriniz"
+                           value="" />
+                </div>
+                <button type="submit" class="btn btn-primary my-3 container">Ekle</button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <form asp-action="contract" asp-controller="Home" method="post">
+        <div class="col-md-6 container">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <input type="text" asp-for="Item2[0].Id" name="Item2.Id" id="id2"/>
+                    <div>
+                        <label for="defaultFormControlInput" class="form-label">Adı</label>
+                        <input type="text" id="name2"
+                               
+                               class="form-control"
+                               placeholder="Adı Giriniz" />
+                    </div>
+                    <div>
+                        <label for="defaultSelect" class="form-label">Tipi Seçiniz</label>
+                        <select id="function2" class="form-select" asp-for="Item2[0].function" name="function">
+                            <option value="Kiralık">Kiralık</option>
+                            <option value="Satılık">Satılık</option>
+                        </select>
+                    </div>
+                    <label for="defaultFormControlInput" class="form-label">Durumu</label>
+                    <div class="col-md">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input"
+                                   id="status1"
+                                   type="radio"
+                                   name="status"
+                                   value="true" />
+                            <label class="form-check-label" for="inlineRadio1">Verildi</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input"
+                                   type="radio"
+                                   name="status"
+                                   id="status2"
+                                   value="false" />
+                            <label class="form-check-label" for="inlineRadio2">Verilmedi</label>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="defaultFormControlInput" class="form-label">Fiyat</label>
+                        <input type="text"
+                               class="form-control"
+                               placeholder="E-posta adresi Giriniz"
+                               id="price2" />
+                    </div>
+                    <div>
+                        <label for="defaultFormControlInput" class="form-label">Adres</label>
+                        <input type="text"
+                               class="form-control"
+                               placeholder="E-posta adresi Giriniz"
+                               id="adress2" />
+                    </div>
+                    <button type="submit" class="btn btn-primary my-3 container">Ekle</button>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+        <button type="submit" class="btn btn-primary">Kaydet</button>
+
+    </form>
+
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $("#city").change(function () {
+
+            var city = $("#city").val();
+            $.ajax({
+                url: '@Url.Action("GetTenants", "Home")',
+                type: "GET",
+                dataType: "json",
+                data: { cityId: city },
+                success: function (data) {
+                    
+                    $.each(data, function () {
+                        //console.log(data[0].id);
+                        //console.log(this.id);
+                        //console.log(this);
+                        //$('#district').append('<option value=' + this.id + '>' + this.name + this.surname + '</option>');
+                        $("#name").val(this.name);
+                        $("#surname").val(this.surname);
+                        $("#phone").val(this.phone);
+                        $("#mail").val(this.mail);
+                        $("#Id").val(this.Id);
+                        
+                    });
+                }
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $("#city2").change(function () {
+
+            var city = $("#city2").val();
+            $.ajax({
+                url: '@Url.Action("GetRents", "Home")',
+                type: "GET",
+                dataType: "json",
+                data: { cityId2: city },
+                success: function (data) {
+
+                    $.each(data, function () {
+                        //console.log(data[0].id);
+                        //console.log(this.id);
+                        console.log(this);
+                        //$('#district').append('<option value=' + this.id + '>' + this.name + this.surname + '</option>');
+                        $("#adress2").val(this.adress);
+                        $("#status2").val(this.status);
+                        $("#name2").val(this.name);
+                        $("#function2").val(this.function);
+                        $("#price2").val(this.price);
+                        $("#Id2").val(this.Id);
+                        if (this.status == true) {
+                            $("#status1").prop("checked", true);
+                        }
+                        else {
+                            $("#status2").prop("checked", true);
+                        }
+
+                    });
+                }
+            });
+        });
+    </script>
+}

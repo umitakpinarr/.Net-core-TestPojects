@@ -1,0 +1,63 @@
+﻿@model rents
+
+<div class="modal fade" id="largeModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel3">Modal title</h5>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <input type="text" asp-for="Id" name="Id"/>
+                    <div class="col col-md-6">
+                        <label for="nameLarge" class="form-label">Name</label>
+                        <input type="text" asp-for="Name" name="Name" class="form-control" placeholder="Enter Name" />
+                    </div>
+                    <div class="col col-md-6">
+                        <label for="nameLarge" class="form-label">Price</label>
+                        <input type="text" asp-for="price" name="price" class="form-control" placeholder="Enter Name" />
+                    </div>
+                    <div class="col col-md-6">
+                        <label for="nameLarge" class="form-label">Adress</label>
+                        <input type="text" asp-for="adress" name="adress" class="form-control" placeholder="Enter Name" />
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input"
+                                   type="radio"
+                                   asp-for="status"
+                                   name="status"
+                                   value="true" />
+                            <label class="form-check-label" for="inlineRadio1">Verildi</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input"
+                                   type="radio"
+                                   asp-for="status"
+                                   name="status"
+                                   value="false" />
+                            <label class="form-check-label" for="inlineRadio2">Verilmedi</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="defaultSelect" class="form-label">Tipi Seçiniz</label>
+                        <select id="defaultSelect" asp-for="function" name="function" class="form-select">
+                            <option value="Kiralık">Kiralık</option>
+                            <option value="Satılık">Satılık</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    Close
+                </button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
